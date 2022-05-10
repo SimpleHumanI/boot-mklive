@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [[ $USER == root ]]; then
+	echo "process ..."
+
+	find / -type f -name "*.iso" 2> /dev/null | nl
+	read -p 'select your iso file with number : ' num_iso 
+
+	OPT=$(find / -name "*.iso" 2> /dev/null | awk "NR==$num_iso {print}" )
+	
+	ls /dev/ | grep -Eo "sd[a-z]" | uniq | nl
+	read -p 'select your disk with number : ' num_disk
+
+	ARG=$(echo -n '/dev/' ; ls /dev/ | grep -Eo "sd[a-z]" | uniq | awk "NR==$num_disk {print}")
+
+	echo -e "\niso : $OPT\ndevice : $ARG\n"
+	read -p 'start process? [y,n]: ' ans_usr
+
+	if [ $ans_usr == y ]; then
+
+		echo "FORMAT $ARG ..."
+		mkfs.fat -F32 -I $ARG 1> /dev/null
+
+		echo "write $OPT ON $ARG ..."
+		cp $OPT $ARG
+
+		echo -e "\ncompleted"
+
+	else
+		echo "exit"
+	
+	fi
+else
+	echo "you don't have access : Permission denied"
+fi
