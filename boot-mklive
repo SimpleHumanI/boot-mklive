@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# checking type of user with $USER environment variable 
+# note: this script requires root access
 if [[ $USER == root ]]; then
 	echo "process ..."
 	
@@ -13,11 +15,13 @@ if [[ $USER == root ]]; then
 	read -p 'select your disk with number : ' num_disk
 	ARG=$(echo -n '/dev/' ; ls /dev/ | grep -Eo "sd[a-z]" | uniq | awk "NR==$num_disk {print}")
 
+	# asking question from user for start/stop process 
 	echo -e "\niso : $OPT\ndevice : $ARG\n"
 	read -p 'start process? [y,n]: ' ans_usr
 
-	if [ $ans_usr == y ]; then
-	
+	# if user press y[es] key , script will be launched
+	if [ $ans_usr == y ]; then 
+
 		# format your device with mkfs.fat -F32 (vfat) command 
 		echo "FORMAT $ARG ..."
 		mkfs.fat -F32 -I $ARG 1> /dev/null
@@ -28,9 +32,9 @@ if [[ $USER == root ]]; then
 
 		echo -e "\ncompleted"
 
+	# if user pess n[o] key , script will not be launched
 	else
-		echo "exit"
-	
+		echo "exit"	
 	fi
 else
 	# error messege if you try runing script without super user 
