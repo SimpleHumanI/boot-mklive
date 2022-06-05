@@ -26,7 +26,7 @@ if [[ $USER == root ]]; then
 		echo "FORMAT $ARG ..."
 		mkfs.fat -F32 -I $ARG 1> /dev/null
 		
-		# write .iso file value on your device with cp command 
+		# write .iso file value on your block device with cp command 
 		echo "write $OPT ON $ARG ..."
 		cp $OPT $ARG
 
@@ -37,6 +37,6 @@ if [[ $USER == root ]]; then
 		echo "exit"	
 	fi
 else
-	# error messege if you try runing script without super user 
+	# error messege if you try launching script without super user access
 	echo "you don't have access : Permission denied"
 fi
