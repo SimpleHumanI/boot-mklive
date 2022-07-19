@@ -1,8 +1,11 @@
 #!/bin/bash
-
 # checking type of user with $USER environment variable 
 # note: this script requires root access
+
 if [[ $USER == root ]]; then
+	if [[ $1 == --help ]]; then
+		echo "just run this script"
+	fi
 	echo "process ..."
 	
 	# find files with .iso suffix in your system  
