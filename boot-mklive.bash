@@ -9,9 +9,9 @@ if [[ $USER == root ]]; then
 	echo "process ..."
 	
 	# find files with .iso suffix in your system  
-	find / -type f -name "*.iso" 2> /dev/null | nl
+	find $HOME -type f -name "*.iso" 2> /dev/null | nl
 	read -p 'select your iso file with number : ' num_iso 
-	OPT=$(find / -name "*.iso" 2> /dev/null | awk "NR==$num_iso {print}" )
+	OPT=$(find $HOME -name "*.iso" 2> /dev/null | awk "NR==$num_iso {print}" )
 	
 	# find your block device (e.g. sda|sdb|sdc|etc) in /dev/ directory 
 	ls /dev/ | grep -Eo "sd[a-z]" | uniq | nl
