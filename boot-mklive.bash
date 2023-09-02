@@ -1,6 +1,6 @@
 #!/bin/bash
 # checking type of user with $USER environment variable 
-# note: this script requires root access
+# note: this script requires "root" access
 
 if [[ $USER == root ]]; then
 	if [[ $1 == --help ]]; then
